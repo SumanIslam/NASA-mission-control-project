@@ -1,0 +1,28 @@
+{
+	"name": "nasa-project",
+	"version": "1.0.0",
+	"description": "",
+	"main": "index.js",
+	"scripts": {
+		"install-server": "cd server && npm install",
+		"install-client": "cd client && npm install",
+		"install-all": "npm run install-server && npm run install-client",
+		"server": "npm run watch --prefix server",
+		"client": "npm start --prefix client",
+		"watch": "concurrently --kill-others-on-fail \"npm run server\" \"npm run client\"",
+		"test": "npm run text --prefix server && npm run test --prefix client"
+	},
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/SumanIslam/NASA-mission-control-project.git"
+	},
+	"author": "",
+	"license": "ISC",
+	"bugs": {
+		"url": "https://github.com/SumanIslam/NASA-mission-control-project/issues"
+	},
+	"homepage": "https://github.com/SumanIslam/NASA-mission-control-project#readme",
+	"dependencies": {
+		"concurrently": "^6.2.1"
+	}
+}
