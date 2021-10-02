@@ -9,6 +9,7 @@
 		"install-all": "npm run install-server && npm run install-client",
 		"server": "npm run watch --prefix server",
 		"client": "npm start --prefix client",
+		"deploy": "npm run build --prefix client && npm start --prefix server",
 		"watch": "concurrently --kill-others-on-fail \"npm run server\" \"npm run client\"",
 		"test": "npm run text --prefix server && npm run test --prefix client"
 	},
@@ -23,6 +24,7 @@
 	},
 	"homepage": "https://github.com/SumanIslam/NASA-mission-control-project#readme",
 	"dependencies": {
-		"concurrently": "^6.2.1"
+		"concurrently": "^6.2.1",
+		"morgan": "^1.10.0"
 	}
 }
