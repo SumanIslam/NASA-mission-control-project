@@ -2,14 +2,18 @@ import axios from 'axios';
 
 const API_URL = 'http://localhost:5000';
 
+// Load planets, and return as JSON.
 async function httpGetPlanets() {
   const response = await axios.get(`${API_URL}/planets`);
   return response.data;
 }
 
+// Load launches, sort by flight number, and return as JSON.
 async function httpGetLaunches() {
-  // TODO: Once API is ready.
-  // Load launches, sort by flight number, and return as JSON.
+  const response = await axios.get(`${API_URL}/launches`);
+  return response.sort((a,b) => {
+    return a.flightNumber - b.flightNumber;
+  })
 }
 
 async function httpSubmitLaunch(launch) {
