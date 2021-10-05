@@ -33,8 +33,15 @@ async function httpSubmitLaunch(launch) {
 
 // Delete launch with given ID.
 async function httpAbortLaunch(id) {
-  // TODO: Once API is ready.
-  
+  try {
+    const response = await axios.delete(`${API_URL}/launches/${id}`);
+    response.ok = true;
+    return response;
+  } catch(err) {
+    return {
+      ok: false
+    }
+  } 
 }
 
 export {
