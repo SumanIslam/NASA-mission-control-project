@@ -11,19 +11,30 @@ async function httpGetPlanets() {
 // Load launches, sort by flight number, and return as JSON.
 async function httpGetLaunches() {
   const response = await axios.get(`${API_URL}/launches`);
-  return response.sort((a,b) => {
+  return response.data.sort((a,b) => {
     return a.flightNumber - b.flightNumber;
   })
 }
 
+// Submit given launch data to launch system.
 async function httpSubmitLaunch(launch) {
-  // TODO: Once API is ready.
-  // Submit given launch data to launch system.
+  // const { launchDate, mission, rocket, target } = launch;
+  try {
+    const response = await axios.post(`${API_URL}/launches`, launch);
+    response.ok = true;
+    return response;
+  } catch(error) {
+    return {
+      ok: false
+    }
+  }
+  
 }
 
+// Delete launch with given ID.
 async function httpAbortLaunch(id) {
   // TODO: Once API is ready.
-  // Delete launch with given ID.
+  
 }
 
 export {
