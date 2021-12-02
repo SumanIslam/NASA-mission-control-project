@@ -8,6 +8,4 @@ const planetsSchema = mongoose.Schema({
 });
 
 // Connects planetsSchema with 'planets' Model
-const planetsModel = mongoose.model('Planet', planetsSchema);
-
-module.exports = planetsModel;
+module.exports = mongoose.model('Planet', planetsSchema);
