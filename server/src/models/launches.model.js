@@ -1,4 +1,4 @@
-// const launches = require('./launches.mongo')
+const launchesDatabase = require('./launches.mongo');
 
 const launches = new Map();
 
@@ -14,7 +14,19 @@ const launch = {
   success: true,
 };
 
-launches.set(launch.flightNumber, launch);
+saveLaunch(launch)
+
+async function saveLaunch(launch) {
+  try {
+    await launchesDatabase.updateOne({
+      flightNumber: launch.flightNumber,
+    }, launch, {
+      upsert: true,
+    })
+  } catch(err) {
+    console.log(`Failed to save Launch: ${err.message}`);
+  }
+}
 
 function isLaunchExist(launchId) {
   console.log(launches);
