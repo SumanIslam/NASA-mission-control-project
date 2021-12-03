@@ -65,17 +65,16 @@ async function getLatestFlightNumber() {
   }
 }
 
-function addNewLaunch(launch) {
-  latestFlightNumber++;
-  launches.set(
-    latestFlightNumber, 
-    Object.assign(launch, {
-      flightNumber: latestFlightNumber,
+async function addNewLaunch(launch) {
+  const latestFlightNumber = await getLatestFlightNumber();
+  const newLaunch = Object.assign(launch, {
+    flightNumber: latestFlightNumber,
       customers: ['Bangladesh', 'NASA'],
       upcoming: true,
       success: true,
-    })
-  );
+  });
+
+  await saveLaunch(launch)
 };
 
 function abortLaunchById(launchId) {
