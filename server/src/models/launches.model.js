@@ -54,7 +54,8 @@ async function getAllLaunches() {
 
 async function getLatestFlightNumber() {
   try {
-    const latestLaunch = launchesDatabase.findOne().sort('-flightNumber');
+    const latestLaunch = await launchesDatabase.findOne().sort('-flightNumber');
+    console.log(latestLaunch.flightNumber);
 
     if(!latestLaunch) {
       return DEFAULT_FLIGHT_NUMBER;
@@ -66,12 +67,13 @@ async function getLatestFlightNumber() {
 }
 
 async function addNewLaunch(launch) {
-  const latestFlightNumber = await getLatestFlightNumber();
+  const latestFlightNumber = Number(await getLatestFlightNumber()) + 1;
+  console.log(latestFlightNumber);
   const newLaunch = Object.assign(launch, {
     flightNumber: latestFlightNumber,
-      customers: ['Bangladesh', 'NASA'],
-      upcoming: true,
-      success: true,
+    customers: ['Bangladesh', 'NASA'],
+    upcoming: true,
+    success: true,
   });
 
   await saveLaunch(launch)
