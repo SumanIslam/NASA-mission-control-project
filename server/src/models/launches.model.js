@@ -44,6 +44,11 @@ async function populateLaunch() {
     }
   });
 
+  if(response.status !== 200) {
+    console.log('Problem loading launch');
+    throw new Error('Loading launch data failed');
+  }
+
   const launchDocs = response.data.docs;
 
   for(const launchDoc of launchDocs) {
@@ -60,9 +65,7 @@ async function populateLaunch() {
       customers,
     }
 
-    console.log(`${launch.flightNumber} ${launch.mission}`);
-
-    // TODO: save launch to database
+    await saveLaunch(launch);
   }
 }
 
@@ -78,7 +81,7 @@ async function loadLaunchData() {
   } else {
     await populateLaunch();
   }
-}
+};
 
 async function findLaunch(filter) {
   return await launchesDatabase.findOne(filter)
@@ -90,12 +93,6 @@ async function isLaunchExist(launchId) {
 
 async function saveLaunch(launch) {
   try {
-    const planet = await planets.findOne({
-      keplerName: launch.target,
-    });
-    if (!planet) {
-      throw new Error('No matching planet found')
-    }
     await launchesDatabase.findOneAndUpdate({
       flightNumber: launch.flightNumber,
     }, launch, {
@@ -132,8 +129,13 @@ async function getLatestFlightNumber() {
 }
 
 async function addNewLaunch(launch) {
+  const planet = await planets.findOne({
+    keplerName: launch.target,
+  });
+  if (!planet) {
+    throw new Error('No matching planet found')
+  }
   const latestFlightNumber = Number(await getLatestFlightNumber()) + 1;
-  console.log(latestFlightNumber);
   const newLaunch = Object.assign(launch, {
     flightNumber: latestFlightNumber,
     customers: ['Bangladesh', 'NASA'],
