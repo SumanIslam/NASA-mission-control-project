@@ -1,4 +1,5 @@
-const axios = require('axios')
+const axios = require('axios');
+const { populate } = require('./launches.mongo');
 
 const launchesDatabase = require('./launches.mongo');
 const planets = require('./planets.mongo');
@@ -18,13 +19,14 @@ const launch = {
 
 saveLaunch(launch);
 
-const SPACEX_API_URL = `https://api.spacexdata.com/v4/launches/query`
+const SPACEX_API_URL = `https://api.spacexdata.com/v4/launches/query`;
 
-async function loadLaunchData() {
+async function populateLaunch() {
   console.log('Downloading Launches Data...');
   const response = await axios.post(SPACEX_API_URL, {
     query: {},
     options: {
+      pagination: false,
       populate: [
         {
           path: "rocket",
@@ -59,7 +61,31 @@ async function loadLaunchData() {
     }
 
     console.log(`${launch.flightNumber} ${launch.mission}`);
+
+    // TODO: save launch to database
   }
+}
+
+async function loadLaunchData() {
+  const firstLaunch = await findLaunch({
+    flightNumber: 1,
+    mission: 'FalconSat',
+    rocket: 'Falcon 1',
+  })
+
+  if(firstLaunch) {
+    console.log('Launches data is already loaded');
+  } else {
+    await populateLaunch();
+  }
+}
+
+async function findLaunch(filter) {
+  return await launchesDatabase.findOne(filter)
+}
+
+async function isLaunchExist(launchId) {
+  return await findLaunch({ flightNumber: launchId })
 }
 
 async function saveLaunch(launch) {
@@ -78,10 +104,6 @@ async function saveLaunch(launch) {
   } catch(err) {
     console.log(`Failed to save Launch: ${err.message}`);
   }
-}
-
-async function isLaunchExist(launchId) {
-  return await launchesDatabase.findOne({ flightNumber: launchId })
 }
 
 async function getAllLaunches() {
