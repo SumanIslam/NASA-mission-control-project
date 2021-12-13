@@ -1,5 +1,7 @@
 const http = require('http');
 
+require('dotenv').config()
+
 const app = require('./app');
 
 const { mongoConnect } = require('./services/mongo.js');
@@ -19,4 +21,5 @@ async function startServer() {
     console.log(`server is running on port ${PORT}...`);
   });
 };
+
 startServer();
