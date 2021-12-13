@@ -103,12 +103,14 @@ async function saveLaunch(launch) {
   }
 }
 
-async function getAllLaunches() {
+async function getAllLaunches(skip, limit) {
   try {
     return await launchesDatabase.find({}, {
       '_id': 0,
       '__v': 0,
-    });
+    })
+    .skip(skip)
+    .limit(limit);
   } catch(err) {
     console.log(`could not fetch Launches: ${err.message}`);
   }
