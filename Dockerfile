@@ -3,16 +3,17 @@ FROM node:lts-alpine
 WORKDIR /app
 
 COPY package*.json ./
+RUN npm run install-main --only=production
 
 COPY client/package*.json client/
-RUN npm install-client --only=production
+RUN npm run install-client --only=production
 
 COPY server/package*.json server/
-RUN npm install-server --only=production
+RUN npm run install-server --only=production
 
 COPY client/ client/ 
 
-RUN npm build --prefix client
+RUN npm run build --prefix client
 
 COPY server/ server/
 
