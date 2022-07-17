@@ -20,10 +20,12 @@ app.use(express.json());
 app.use('/v1', api);
 
 if (process.env.NODE_ENV === "production") {
-	app.use(express.static(path.join(__dirname, "..", "public")));
+	app.use(express.static(path.join(__dirname, "..", "..", "client", "build")));
 
 	app.get("*", (req, res) => {
-		res.sendFile(path.join(__dirname, "..", "public", "index.html"));
+		res.sendFile(
+			path.join(__dirname, "..", "..", "client", "build", "index.html")
+		);
 	});
 }
 
