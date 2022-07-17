@@ -15,14 +15,17 @@ app.use(cors());
 app.use(morgan('combined'))
 app.use(express.json());
 
-// serving static file using express middleware
-app.use(express.static(path.join(__dirname, '..','public')))
 
 // Routes
 app.use('/v1', api);
 
-app.get('/*', (req, res) => {
-  res.sendFile(path.join(__dirname, '..','public', 'index.html'));
-});
+if (process.env.NODE_ENV === "production") {
+	app.use(express.static(path.join(__dirname, "..", "public")));
+
+	app.get("*", (req, res) => {
+		res.sendFile(path.join(__dirname, "..", "public", "index.html"));
+	});
+}
+
 
 module.exports = app;
