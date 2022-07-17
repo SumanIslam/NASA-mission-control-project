@@ -10,11 +10,11 @@
 		"install-main": "npm install morgan",
 		"server": "npm run watch --prefix server",
 		"client": "npm start --prefix client",
-		"deploy": "npm run build --prefix client && npm start --prefix server",
+		"deploy": "npm run build --prefix client",
 		"deploy-cluster": "npm run build --prefix client && npm run cluster --prefix server",
 		"watch": "concurrently --kill-others-on-fail \"npm run server\" \"npm run client\"",
 		"test": "npm test --prefix server && npm test --prefix client",
-		"heroku-postbuild": "NPM_CONFIG_PRODUCTION=false npm install --prefix client && npm run build --prefix client && npm run start --prefix server"
+		"heroku-postbuild": "NPM_CONFIG_PRODUCTION=false npm install --prefix client && npm run build --prefix client"
 	},
 	"repository": {
 		"type": "git",
