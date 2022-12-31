@@ -1,2 +1,2 @@
 ## website link
-Click [here](https://nasamissioncontrolapp.com/) to see the Live preview of the website.
+Click [here](https://nasamissioncontrol.vercel.app/) to see the Live preview of the website.
