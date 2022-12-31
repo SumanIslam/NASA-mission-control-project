@@ -2,7 +2,6 @@
 	"name": "nasa-front-end",
 	"version": "1.0.0",
 	"private": true,
-	"proxy": "http://localhost:5000",
 	"dependencies": {
 		"arwes": "^1.0.0-alpha.5",
 		"axios": "^0.21.4",
