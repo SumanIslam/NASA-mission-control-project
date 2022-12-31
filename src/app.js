@@ -1,36 +1,30 @@
-const path = require('path');
-const express = require('express');
-const cors = require('cors');
-const morgan = require('morgan')
+import {
+  BrowserRouter as Router,
+} from "react-router-dom";
+import {
+  Arwes,
+  SoundsProvider,
+  ThemeProvider,
+  createSounds,
+  createTheme,
+} from "arwes";
 
-const api = require('./routes/api');
+import AppLayout from "./pages/AppLayout";
 
-const app = express();
+import { theme, resources, sounds } from "./settings";
 
-// middleware
-app.use(cors());
-//  {
-//   origin: 'http://localhost:3000'
-// }
-app.use(morgan('combined'))
-app.use(express.json());
+const App = () => {
+  return <ThemeProvider theme={createTheme(theme)}>
+    <SoundsProvider sounds={createSounds(sounds)}>
+      <Arwes animate background={resources.background.large} pattern={resources.pattern}>
+        {anim => (
+          <Router>
+            <AppLayout show={anim.entered} />
+          </Router>
+        )}
+      </Arwes>
+    </SoundsProvider>
+  </ThemeProvider>;
+};
 
-
-// Routes
-app.use('/v1', api);
-
-if (process.env.NODE_ENV === "production") {
-	app.use(express.static(path.join(__dirname, "..", "client", "build")));
-
-	app.get("*", (req, res) => {
-		res.sendFile(
-			path.join(__dirname, '..', '..', 'client', 'build', 'index.html'),
-			function (err) {
-				res.status(500).send(err);
-			}
-		);
-	});
-}
-
-
-module.exports = app;
+export default App;

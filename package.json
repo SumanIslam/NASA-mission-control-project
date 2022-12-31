@@ -1,49 +1,38 @@
 {
-	"name": "nasa-project-api",
+	"name": "nasa-front-end",
 	"version": "1.0.0",
-	"description": "NASA MISSION CONTROL API",
-	"main": "./src/server.js",
-	"scripts": {
-		"test": "jest --detectOpenHandles",
-		"test-watch": "jest --watch",
-		"start": "node src/server.js",
-		"cluster": "pm2 start src/server.js -i max",
-		"install-client": "cd client && npm install",
-		"build": "cd client && npm run build",
-		"install-all": "npm install && npm run install-client",
-		"client": "npm start --prefix client",
-		"deploy": "npm run build --prefix client && npm start",
-		"deploy-cluster": "npm run build --prefix client && npm run cluster",
-		"watch": "concurrently --kill-others-on-fail \"npm run server\" \"npm run client\"",
-		"heroku-postbuild": "NPM_CONFIG_PRODUCTION=false npm install --prefix client && npm run build --prefix client"
-	},
-	"repository": {
-		"type": "git",
-		"url": "git+https://github.com/SumanIslam/NASA-mission-control-project.git"
-	},
-	"author": "",
-	"license": "ISC",
-	"jest": {
-		"testEnvironment": "node"
-	},
-	"bugs": {
-		"url": "https://github.com/SumanIslam/NASA-mission-control-project/issues"
-	},
-	"homepage": "https://github.com/SumanIslam/NASA-mission-control-project#readme",
+	"private": true,
+	"proxy": "http://localhost:5000",
 	"dependencies": {
-		"morgan": "^1.10.0",
-		"axios": "^0.24.0",
-		"cors": "^2.8.5",
-		"csv-parse": "^4.16.3",
-		"dotenv": "^10.0.0",
-		"express": "^4.17.1",
-		"mongoose": "^6.0.13",
-		"pm2": "^5.1.2"
+		"arwes": "^1.0.0-alpha.5",
+		"axios": "^0.21.4",
+		"react": "^17.0.1",
+		"react-dom": "^17.0.1",
+		"react-router-dom": "^5.2.0",
+		"react-scripts": "^5.0.1"
 	},
-	"devDependencies": {
-		"concurrently": "^6.2.1",
-		"jest": "^27.2.4",
-		"nodemon": "^2.0.13",
-		"supertest": "^6.1.6"
+	"scripts": {
+		"start": "react-scripts start",
+		"build": "react-scripts build",
+		"test": "react-scripts test --passWithNoTests",
+		"eject": "react-scripts eject"
+	},
+	"eslintConfig": {
+		"extends": [
+			"react-app",
+			"react-app/jest"
+		]
+	},
+	"browserslist": {
+		"production": [
+			">0.2%",
+			"not dead",
+			"not op_mini all"
+		],
+		"development": [
+			"last 1 chrome version",
+			"last 1 firefox version",
+			"last 1 safari version"
+		]
 	}
 }
