@@ -10,7 +10,7 @@
 		"cluster": "pm2 start src/server.js -i max",
 		"install-client": "cd client && npm install",
 		"build": "cd client && npm run build",
-		"install": "npm install && npm run install-client",
+		"install-all": "npm install && npm run install-client",
 		"client": "npm start --prefix client",
 		"deploy": "npm run build --prefix client && npm start",
 		"deploy-cluster": "npm run build --prefix client && npm run cluster",
