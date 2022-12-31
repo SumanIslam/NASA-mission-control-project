@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const API_URL = "v1";
+const API_URL = 'https://nasamissioncontrolserver.onrender.com/v1';
 // http://localhost:5000/
 
 // Load planets, and return as JSON.
