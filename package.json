@@ -1,21 +1,20 @@
 {
-	"name": "nasa-project",
+	"name": "nasa-project-api",
 	"version": "1.0.0",
-	"description": "",
-	"main": "./server/src/server.js",
+	"description": "NASA MISSION CONTROL API",
+	"main": "./src/server.js",
 	"scripts": {
-		"start": "cd server && npm install && npm run start",
-		"install-server": "cd server && npm install",
+		"test": "jest --detectOpenHandles",
+		"test-watch": "jest --watch",
+		"start": "node src/server.js",
+		"cluster": "pm2 start src/server.js -i max",
 		"install-client": "cd client && npm install",
 		"build": "cd client && npm run build",
-		"install": "npm run install-server && npm run install-client",
-		"install-main": "npm install morgan",
-		"server": "npm run watch --prefix server",
+		"install": "npm run install && npm run install-client",
 		"client": "npm start --prefix client",
-		"deploy": "npm run build --prefix client && npm start --prefix server",
-		"deploy-cluster": "npm run build --prefix client && npm run cluster --prefix server",
+		"deploy": "npm run build --prefix client && npm start",
+		"deploy-cluster": "npm run build --prefix client && npm run cluster",
 		"watch": "concurrently --kill-others-on-fail \"npm run server\" \"npm run client\"",
-		"test": "npm test --prefix server && npm test --prefix client",
 		"heroku-postbuild": "NPM_CONFIG_PRODUCTION=false npm install --prefix client && npm run build --prefix client"
 	},
 	"repository": {
@@ -24,14 +23,27 @@
 	},
 	"author": "",
 	"license": "ISC",
+	"jest": {
+		"testEnvironment": "node"
+	},
 	"bugs": {
 		"url": "https://github.com/SumanIslam/NASA-mission-control-project/issues"
 	},
 	"homepage": "https://github.com/SumanIslam/NASA-mission-control-project#readme",
 	"dependencies": {
-		"morgan": "^1.10.0"
+		"morgan": "^1.10.0",
+		"axios": "^0.24.0",
+		"cors": "^2.8.5",
+		"csv-parse": "^4.16.3",
+		"dotenv": "^10.0.0",
+		"express": "^4.17.1",
+		"mongoose": "^6.0.13",
+		"pm2": "^5.1.2"
 	},
 	"devDependencies": {
-		"concurrently": "^6.2.1"
+		"concurrently": "^6.2.1",
+		"jest": "^27.2.4",
+		"nodemon": "^2.0.13",
+		"supertest": "^6.1.6"
 	}
 }
