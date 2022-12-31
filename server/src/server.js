@@ -16,11 +16,14 @@ async function startServer() {
   await loadPlanets();
   await loadLaunchData();
 
-  mongoConnect().then(
-    server.listen(PORT, () => {
+  server.listen(PORT, async () => {
+    try  {
+      await mongoConnect();
       console.log(`server is running on port ${PORT}...`);
-    })
-  )
+    } catch(err) {
+      console.log(err.message);
+    }
+  })
 };
 
 startServer();
